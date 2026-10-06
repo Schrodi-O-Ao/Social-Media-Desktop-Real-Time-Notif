@@ -23,8 +23,31 @@ The first successful check records the channel’s current upload and stays quie
 
 `start_aoo.bat` starts the same app when double-clicked. Put a shortcut to it in `shell:startup` if you want it to run after Windows sign-in.
 
-## Where it can grow
+## Check or remove Aoo
 
-The code separates YouTube requests, saved data, and the Tk interface. That makes new sources possible, but each source should expose the same small idea: find its newest item, give it a stable ID, title, link, and optional picture. Add that behind a provider interface before adding Twitch, RSS, or another site.
+These are PowerShell scripts. Open PowerShell in this project folder and run:
 
-For a more polished Windows feel, native Windows toast notifications are the next useful step. They can appear in notification history and need less custom window handling. Per-channel schedules and failures belong in saved settings only after the basic flow stays reliable.
+```powershell
+.\scripts\Test-Aoo.ps1
+```
+
+It tells you whether this Aoo project and its saved data exist.
+
+This removes only your saved channels and video history. It does not remove the code:
+
+```powershell
+.\scripts\Remove-Aoo.ps1 -DataOnly
+```
+
+This removes the whole verified Aoo project folder, including the scripts themselves. Close Aoo first. The script asks you to type `REMOVE` before it does anything:
+
+```powershell
+.\scripts\Remove-Aoo.ps1
+```
+
+If PowerShell blocks a local script, run it once with `-ExecutionPolicy Bypass`, for example:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\Test-Aoo.ps1
+```
+
